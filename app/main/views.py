@@ -21,7 +21,7 @@ def index():
 def about():
 
     '''
-    View root page function that returns the index page and its data
+    View root page function that returns the about page and its data
     '''
     
     title = 'About Us'
@@ -33,12 +33,48 @@ def about():
 def interview():
 
     '''
-    View root page function that returns the index page and its data
+    View root page function that returns the interviews page and its data
     '''
     
     title = 'Interview Pitches'
     
     return render_template('interview.html', title = title)
+
+
+@main.route('/product')
+def product():
+
+    '''
+    View root page function that returns the products page and its data
+    '''
+    
+    title = 'Product Pitches'
+    
+    return render_template('product.html', title = title)
+
+
+@main.route('/promotion')
+def promotion():
+
+    '''
+    View root page function that returns the promotions page and its data
+    '''
+    
+    title = 'Promotion Pitches'
+    
+    return render_template('promotion.html', title = title)
+
+
+@main.route('/pick-up-lines')
+def pickuplines():
+
+    '''
+    View root page function that returns the pick up lines page and its data
+    '''
+    
+    title = 'Pick Up Lines'
+    
+    return render_template('pick-up-lines.html', title = title)
 
 
 # @main.route('/comment/<int:pitch_id>', methods = ['POST','GET'])

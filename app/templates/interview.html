@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% import 'macros.html' as macro%}
+
+<!-- Content block -->
+{% block content %}
+<div class="container-fluid mt-3">
+  <div class="row">{{macro.displayPitchList(interview)}}</div>
+</div>
+
+{% block footer %} {% include 'footer.html' %} {% endblock%} {% endblock %}
