@@ -4,4 +4,29 @@
 <!-- Content block -->
 {% block content %}
 
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Vividly Pitchology</h3>   
+      <p class='text-muted'>All Pitches feed.</p>
+    </div>
+    <div class="col-md-4">
+      <div class="categories-section">
+        <h3>Categories</h3>
+        <p class='text-muted'>Check out the various pitches categories.</p>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-light">Interview Pitches</li>
+            <li class="list-group-item list-group-item-light">Product Pitches</li>
+            <li class="list-group-item list-group-item-light">Promotion Pitches</li>
+            <li class="list-group-item list-group-item-light">Pickup lines</li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock%}
 {% endblock%}
