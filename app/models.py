@@ -7,6 +7,22 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+class Pitch:
+    '''
+    Pitch class to define Pitch Objects
+    '''
+
+    def __init__(self,title,body,author,category,upvotes,downvotes,posted_by,posted_at):
+        self.title = title
+        self.body = body
+        self.author = author
+        self.category = category
+        self.upvotes = upvotes
+        self.downvotes = downvotes
+        self.posted_by = posted_by
+        self.posted_at = posted_at
+    
+
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
 

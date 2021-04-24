@@ -23,7 +23,7 @@
         {% if current_user.is_authenticated %}
         <li>
           <a href="{{url_for('main.profile',uname=current_user.username)}}"
-            >Profile</a
+            ><span class="glyphicon glyphicon-user"></span> Profile</a
           >
         </li>
         <li>

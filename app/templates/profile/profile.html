@@ -3,15 +3,15 @@
   <div class="row">
     <!-- displaying  Username-->
     <div class="col-md-4">
-      <h3>{{user.username| capitalize}}</h3>
+      <h3 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{user.username| capitalize}}</h3>
 
       <!--Displaying user bio-->
       {% if user.bio %}
-      <p>{{user.bio}}</p>
+      <strong><p>{{user.bio}}</p></strong>
       {%else%}
       <p>{{user.username| capitalize}} has no bio</p>
       {% endif %} {% if user == current_user %}
-      <a class="btn btn-default" href="{{url_for('main.update_profile',uname=user.username)}}"
+      <a class="j btn btn-default" href="{{url_for('main.update_profile',uname=user.username)}}"
         >Edit profile</a
       >
       {% endif %}
