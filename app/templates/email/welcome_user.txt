@@ -1,0 +1,3 @@
+Hello {{user.username}}
+Welcome to Vividly.
+We have just seen that you have signed up for our application and want to welcome you to the family. We hope Vividly will be to you a home away from home, and a safe place to be.
