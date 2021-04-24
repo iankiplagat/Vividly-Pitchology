@@ -1,5 +1,18 @@
 * {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  color: #00adb5;
+}
+
+.navbar {
+  background-color: #222831;
+}
+
+.glyphicon {
+  color: #9d9d9d;
+}
+
+.mt {
+  margin-top: 5px;
 }
 
 .navbar-brand {
@@ -8,7 +21,9 @@
   color: #fff;
 }
 
-h1,h2,h3 {
+h1,
+h2,
+h3 {
   font-weight: bold;
 }
 
@@ -20,7 +35,7 @@ h1,h2,h3 {
 footer {
   position: absolute;
   bottom: 0;
-  background-color: black;
+  background-color: #222831;
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -55,6 +70,14 @@ footer {
   background-image: url(../photos/img.jpg);
 } */
 
+.dredi {
+  background-position: bottom;
+}
+
+.dusty {
+  color: #fc766aff;
+}
+
 .ian {
   margin-top: 25px;
 }
@@ -62,6 +85,7 @@ footer {
 .btn {
   background-color: rgb(20, 20, 20, 0.8);
   color: white;
+  background-color: #393e46;
 }
 
 @media screen and (max-width: 800px) {
