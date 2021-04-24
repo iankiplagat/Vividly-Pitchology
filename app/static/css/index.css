@@ -11,3 +11,15 @@ footer {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.carousel .item {
+  height: 450px;
+}
+
+.item img {
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  min-height: 450px;
+}

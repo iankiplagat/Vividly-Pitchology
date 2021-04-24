@@ -17,6 +17,30 @@ def index():
     return render_template('index.html', title = title)
 
 
+@main.route('/about')
+def about():
+
+    '''
+    View root page function that returns the index page and its data
+    '''
+    
+    title = 'About Us'
+    
+    return render_template('about.html', title = title)
+
+
+@main.route('/interview')
+def interview():
+
+    '''
+    View root page function that returns the index page and its data
+    '''
+    
+    title = 'Interview Pitches'
+    
+    return render_template('interview.html', title = title)
+
+
 # @main.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
 # @login_required
 # def comment(pitch_id):
