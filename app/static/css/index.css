@@ -41,14 +41,15 @@ footer {
   padding-bottom: 10px;
 }
 
-/* .main-footer {
-  position: absolute;
+.category-footer {
+  position: relative;
   bottom: 0;
   background-color: black;
   width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
-} */
+  margin-top: 80px;
+} 
 
 .carousel .item {
   height: 450px;
@@ -75,7 +76,22 @@ footer {
 }
 
 .dusty {
-  color: #fc766aff;
+  color: #06ffff;
+  font-weight: 700;
+}
+
+#bgo {
+  background-color: black;
+  opacity: 0.7;
+  font-weight: 800;
+}
+
+.opac {
+  opacity: 0.8;
+}
+
+.prof {
+  color: pink;
 }
 
 .ian {
@@ -83,9 +99,37 @@ footer {
 }
 
 .btn {
-  background-color: rgb(20, 20, 20, 0.8);
+  background-color: rgb(20, 20, 20, 0.5);
   color: white;
   background-color: #393e46;
+}
+
+.pit {
+  margin-bottom: 30px;
+}
+
+.pitch-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 5px;
+  background-color: #e6dada;
+  margin-bottom: 30px;
+}
+
+.pitch-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding-bottom: 10px;
+  font-size: larger;
+}
+
+.mgl {
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 800px) {

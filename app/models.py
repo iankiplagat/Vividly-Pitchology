@@ -7,20 +7,19 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-class Pitch:
+class Pitch(db.Model):
     '''
     Pitch class to define Pitch Objects
     '''
-
-    def __init__(self,title,body,author,category,upvotes,downvotes,posted_by,posted_at):
-        self.title = title
-        self.body = body
-        self.author = author
-        self.category = category
-        self.upvotes = upvotes
-        self.downvotes = downvotes
-        self.posted_by = posted_by
-        self.posted_at = posted_at
+    
+    __tablename__ = 'pitches'
+     
+    id = db.Column(db.Integer,primary_key = True)
+    title = db.Column(db.String(255),index = True)
+    content = db.Column(db.String(255),index = True)
+    category = db.Column(db.String(255),index = True)
+    upvote = db.relationship('Upvote',backref='pitch',lazy='dynamic')
+    downvote = db.relationship('Downvote',backref='pitch',lazy='dynamic')
     
 
 class User(UserMixin,db.Model):
@@ -41,7 +40,7 @@ class User(UserMixin,db.Model):
 
     @password.setter
     def password(self, password):
-        self.password_hash= generate_password_hash(password)
+        password_hash= generate_password_hash(password)
 
 
     def verify_password(self,password):
@@ -49,7 +48,7 @@ class User(UserMixin,db.Model):
 
 
     def __repr__(self):
-        return f'User {self.username}'
+        return f'User {username}'
     
     
 class Role(db.Model):
@@ -61,4 +60,68 @@ class Role(db.Model):
 
 
     def __repr__(self):
-        return f'User {self.name}' 
+        return f'User {name}' 
+    
+    
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.Text(),nullable = False)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable = False)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'),nullable = False)
+
+    def save_c(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,pitch_id):
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+
+        return comments
+
+    
+    def __repr__(self):
+        return f'comment:{self.comment}'    
+    
+    
+class Upvote(db.Model):
+    __tablename__ = 'upvotes'
+
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_upvotes(cls,id):
+        upvote = Upvote.query.filter_by(pitch_id=id).all()
+        return upvote
+
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'
+    
+
+class Downvote(db.Model):
+    __tablename__ = 'downvotes'
+
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
+    
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    @classmethod
+    def get_downvotes(cls,id):
+        downvote = Downvote.query.filter_by(pitch_id=id).all()
+        return downvote
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'    

@@ -1,9 +1,9 @@
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,redirect,url_for,flash
 from flask_login import login_required
 from . import main
-from .forms import UpdateProfile
+from .forms import UpdateProfile,PitchForm,CommentForm
 from .. import db,photos
-from ..models import User
+from ..models import User,Pitch,Comment
 
 @main.route('/')
 def index():
@@ -29,68 +29,21 @@ def about():
     return render_template('about.html', title = title)
 
 
-@main.route('/interview')
-def interview():
+@main.route('/pitches/<category>')
+@login_required
+def category(category):
+    pitch = Pitch.query.filter_by(category=category).all()
+    print(pitch)
+    return render_template('category.html', pitch = pitch)
 
-    '''
-    View root page function that returns the interviews page and its data
-    '''
+
+@main.route('/comments/<id>')
+@login_required
+def comments(comments):
+    comment = Comment.query.filter_by(id=id).all()
+    print(pitch)
     
-    title = 'Interview Pitches'
-    
-    return render_template('interview.html', title = title)
-
-
-@main.route('/product')
-def product():
-
-    '''
-    View root page function that returns the products page and its data
-    '''
-    
-    title = 'Product Pitches'
-    
-    return render_template('product.html', title = title)
-
-
-@main.route('/promotion')
-def promotion():
-
-    '''
-    View root page function that returns the promotions page and its data
-    '''
-    
-    title = 'Promotion Pitches'
-    
-    return render_template('promotion.html', title = title)
-
-
-@main.route('/pick-up-lines')
-def pickuplines():
-
-    '''
-    View root page function that returns the pick up lines page and its data
-    '''
-    
-    title = 'Pick Up Lines'
-    
-    return render_template('pick-up-lines.html', title = title)
-
-
-# @main.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
-# @login_required
-# def comment(pitch_id):
-#     form = CommentForm()
-#     pitch = Pitch.query.get(pitch_id)
-#     all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
-#     if form.validate_on_submit():
-#         comment = form.comment.data 
-#         pitch_id = pitch_id
-#         user_id = current_user._get_current_object().id
-#         new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
-#         new_comment.save_c()
-#         return redirect(url_for('.comment', pitch_id = pitch_id))
-#     return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
+    return render_template('category.html', pitch = pitch)
 
 
 @main.route('/user/<uname>')
@@ -133,3 +86,49 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+
+@main.route('/create_pitch',methods = ['GET','POST'])
+@login_required
+def create_pitch():
+
+    '''
+    View root page function that returns the index page and its data
+    '''
+    
+    title = 'create_pitch'
+    form = PitchForm()
+    print(form.errors)
+    if form.is_submitted():
+        print('submitted')
+    if form.validate():
+        print("valid")
+    print(form.errors)
+    if form.validate_on_submit():
+        flash('Your post has been created!', 'success')
+        title = form.title.data
+        content = form.content.data
+        category = form.category.data
+        new_pitch = Pitch(title = title,content=content,category=category)
+        db.session.add(new_pitch)
+        db.session.commit()
+        return redirect(url_for("main.category",category = category))
+    
+    return render_template('create_pitch.html', title = title, form = form)
+
+
+@main.route('/comment/<int:pitch_id>', methods = ['POST','GET'])
+@login_required
+def comment(pitch_id):
+    form = CommentForm()
+    pitch = Pitch.query.get(pitch_id)
+    all_comments = Comment.query.filter_by(pitch_id = pitch_id).all()
+    if form.validate_on_submit():
+        comment = form.comment.data 
+        pitch_id = pitch_id
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
+        new_comment.save_c()
+        return redirect(url_for('.comment', pitch_id = pitch_id))
+    
+    return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
