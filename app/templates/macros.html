@@ -13,13 +13,18 @@
     </div>
     <div class="card-body">
       <p class="card-text" style="color: black">{{pitch.content}}</p>
-      <br>
-      <p class="card-text" style="color: black">Posted by</p>
+      <br />
+      <p class="card-text" style="color: black">Posted by {{pitch.user.user_id}}</p>
       <div class="card-header">
-        <a href=""><i class="voteup fa fa-thumbs-up" style="color: black;"></i> Show no.</a>
-        <a href="" class="mgl"><i class="votedown fa fa-thumbs-down" style="color: black;"></i></a>
+        <a href=""
+          ><i class="voteup fa fa-thumbs-up" style="color: black"></i> Show
+          no.</a
+        >
+        <a href="" class="mgl"
+          ><i class="votedown fa fa-thumbs-down" style="color: black"></i
+        ></a>
       </div>
-      <p class="ian">Add a comment <a href="/comment/{{pitch.id}}">here</a>.</p>
+      <p class="ian">Add a comment <a class="text-muted" href="/comment/{{pitch.id}}">here</a>.</p>
     </div>
   </div>
 </div>

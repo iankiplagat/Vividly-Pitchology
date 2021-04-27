@@ -18,8 +18,10 @@ class Pitch(db.Model):
     title = db.Column(db.String(255),index = True)
     content = db.Column(db.String(255),index = True)
     category = db.Column(db.String(255),index = True)
+    comment = db.relationship('Comment',backref='pitch',lazy='dynamic')
     upvote = db.relationship('Upvote',backref='pitch',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='pitch',lazy='dynamic')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
 
 class User(UserMixin,db.Model):
@@ -31,6 +33,10 @@ class User(UserMixin,db.Model):
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
+    pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
+    comment = db.relationship('Comment', backref='user', lazy='dynamic')
+    upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
+    downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
     
     password_hash= db.Column(db.String(255))
     

@@ -3,7 +3,15 @@
   <div class="row">
     <!-- displaying  Username-->
     <div class="col-md-4">
-      <h3 class="prof" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{user.username| capitalize}}</h3>
+      <h3
+        class="prof"
+        style="
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+            sans-serif;
+        "
+      >
+        {{user.username| capitalize}}
+      </h3>
 
       <!--Displaying user bio-->
       {% if user.bio %}
@@ -11,7 +19,9 @@
       {%else%}
       <p>{{user.username| capitalize}} has no bio</p>
       {% endif %} {% if user == current_user %}
-      <a class="j btn btn-default" href="{{url_for('main.update_profile',uname=user.username)}}"
+      <a
+        class="j btn btn-default"
+        href="{{url_for('main.update_profile',uname=user.username)}}"
         >Edit profile</a
       >
       {% endif %}
@@ -29,16 +39,33 @@
       {%else%}
       <p>No profile picture</p>
       {% endif %} {% if user == current_user %}
-      <form style="width: 28rem"
+      <form
+        style="width: 28rem"
         action="{{url_for('main.update_pic',uname=user.username)}}"
         method="post"
         enctype="multipart/form-data"
       >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        {{ form.csrf_token }} {{ form.hidden_tag( )}}
         <input type="file" name="photo" class="ian form-control" required />
         <input class="ian btn btn-default" type="submit" />
       </form>
       {% endif %}
     </div>
+  </div>
+  <div class="col-md-6">
+    {% if current_user %}
+    <h3>You have {{user.pitches.count()}} Pitches</h3>
+    {% for i in posts%}
+    <div class="pitches">
+      <h5>Title: {{i.title}}</h5>
+      <h6>{{i.post}}</h6>
+      <p>{{i.comment.count()}} Comments</p>
+    </div>
+
+    {%endfor%} {%else%}
+    <h3>You have ) posts</h3>
+    {%endif%}
   </div>
 </div>
 {% block footer %} {% include 'footer.html' %} {% endblock%} {% endblock %}
