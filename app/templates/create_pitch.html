@@ -1,16 +1,14 @@
 {% extends 'base.html' %} {% import 'bootstrap/wtf.html' as wtf %} {%block
-styles%} {{ super() }} {%endblock%}
-{% block content %}
+styles%} {{ super() }} {%endblock%} {% block content %}
 <div class="container content-section">
   <form method="POST" action="">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    {{ form.csrf_token }}
-    {{ form.hidden_tag( )}}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">New Pitch</legend>
       <div class="form-group">
         {{ form.title.label(class="form-control-label") }} {% if
-        form.title.errors %} {{ form.title(class="form-control form-control-lg is-invalid") }}
+        form.title.errors %} {{ form.title(class="form-control form-control-lg
+        is-invalid") }}
         <div class="invalid-feedback">
           {% for error in form.title.errors %}
           <span>{{ error }}</span>
@@ -43,16 +41,9 @@ styles%} {{ super() }} {%endblock%}
         {% else %} {{ form.category(class="form-control form-control-lg") }} {%
         endif %}
       </div>
-      <div class="form-group">
-        {{ form.submit(class="btn btn-default") }}
-      </div>
+      <div class="form-group">{{ form.submit(class="btn btn-default") }}</div>
     </fieldset>
   </form>
 </div>
-{% block footer %}
-{% include 'footer.html' %}
-{% endblock%}
-{% endblock content %}
-
-
-
+{% block footer %} {% include 'footer.html' %} {% endblock%} {% endblock content
+%}

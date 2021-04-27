@@ -11,8 +11,8 @@
       {% for comment in all_comments %}
           <div class="pitch-card card" >
               <div class="card-body">
-                <h5>{{comment.user_id}}</h5>
-                <p class="card-title">{{ comment.comment }}</p>
+                <h5 class="" style="text-decoration: underline;">{{comment.user.username}}</h5>
+                <p class="card-title" style="color: black;">{{ comment.comment }}</p>
               </div>
           </div>
       {% endfor %}
@@ -21,16 +21,16 @@
       {{wtf.quick_form(form)}}
       {{simplemde.load}}
   </div>
-</div>
   {%else%}
-  <div class="card w-90 mb-3">
+  <div class="card">
       <div class="card-body">
         <p class="card-title">No Comments yet for this post. Be the first person to comment</p>
       </div>
   </div> 
-  <div class="col-md-5">
-          {{wtf.quick_form(form)}}
-      </div>
+  <div class="col-md-12">
+      {{wtf.quick_form(form)}}
+      {{simplemde.load}}
+  </div>
   {%endif%}
 </div>
 

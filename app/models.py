@@ -2,6 +2,7 @@ from . import db
 from . import login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -21,7 +22,8 @@ class Pitch(db.Model):
     comment = db.relationship('Comment',backref='pitch',lazy='dynamic')
     upvote = db.relationship('Upvote',backref='pitch',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='pitch',lazy='dynamic')
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable = False)
+    time = db.Column(db.DateTime, default = datetime.utcnow)
     
 
 class User(UserMixin,db.Model):
@@ -42,19 +44,18 @@ class User(UserMixin,db.Model):
     
     @property
     def password(self):
-        raise AttributeError('You cannot read the password attribute')
+        raise AttributeError('You cannnot read the password attribute')
 
     @password.setter
     def password(self, password):
-        password_hash= generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
 
 
     def verify_password(self,password):
         return check_password_hash(self.password_hash,password)
 
-
     def __repr__(self):
-        return f'User {username}'
+        return f'User {self.username}'
     
     
 class Role(db.Model):
@@ -66,7 +67,7 @@ class Role(db.Model):
 
 
     def __repr__(self):
-        return f'User {name}' 
+        return f'User {self.name}' 
     
     
 class Comment(db.Model):
