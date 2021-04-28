@@ -4,7 +4,7 @@ from . import main
 from .forms import UpdateProfile,PitchForm,CommentForm
 from .. import db,photos
 from ..models import User,Pitch,Comment,Upvote,Downvote
-import markdown2 
+# import markdown2 
 
 @main.route('/')
 def index():
@@ -135,6 +135,7 @@ def comment(pitch_id):
         user_id = current_user._get_current_object().id
         new_comment = Comment(comment = comment,user_id = user_id,pitch_id = pitch_id)
         new_comment.save_c()
+        
         return redirect(url_for('.comment', pitch_id = pitch_id))
     
     return render_template('comment.html', form =form, pitch = pitch,all_comments=all_comments)
@@ -149,12 +150,12 @@ def upvote(id):
         to_str = f'{pitch}'
         print(valid_string+" "+to_str)
         if valid_string == to_str:
-            return redirect(url_for('main.category',category = category))
+            return redirect(url_for('main.index',id=id))
         else:
             continue
     new_vote = Upvote(user = current_user, pitch_id=id)
     new_vote.save()
-    return redirect(url_for('main.category',category = category))
+    return redirect(url_for('main.index',id=id))
 
 
 @main.route('/downvote/<int:id>',methods = ['POST','GET'])

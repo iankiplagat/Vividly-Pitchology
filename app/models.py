@@ -2,7 +2,6 @@ from . import db
 from . import login_manager
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
-from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -23,7 +22,6 @@ class Pitch(db.Model):
     upvote = db.relationship('Upvote',backref='pitch',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='pitch',lazy='dynamic')
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable = False)
-    time = db.Column(db.DateTime, default = datetime.utcnow)
     
 
 class User(UserMixin,db.Model):

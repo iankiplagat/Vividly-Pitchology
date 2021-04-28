@@ -14,16 +14,24 @@
     <div class="card-body">
       <p class="card-text" style="color: black">{{pitch.content}}</p>
       <br />
-      <p class="card-text" style="color: black">Posted by {{pitch.user.username}}</p>
+      <p class="card-text" style="color: black">
+        Posted by {{pitch.user.username}}
+      </p>
       <div class="card-header">
-        <a href="{{url_for('.upvote',id = pitch.id)}}"
-          ><i class="voteup fa fa-thumbs-up" style="color: black"></i> <span>{{pitch.upvote.count()}}</span></a
+        <a href="{{url_for('main.upvote',id = pitch.id)}}"
+          ><i class="voteup fa fa-thumbs-up" style="color: black"></i>
+          <span>{{pitch.upvote.count()}}</span></a
         >
         <a href="{{url_for('main.downvote',id = pitch.id)}}" class="mgl"
-          ><i class="votedown fa fa-thumbs-down" style="color: black"> <span>{{pitch.downvote.count()}}</span></i
-        ></a>
+          ><i class="votedown fa fa-thumbs-down" style="color: black">
+            <span>{{pitch.downvote.count()}}</span></i
+          ></a
+        >
       </div>
-      <p class="ian">Add a comment <a class="text-muted" href="/comment/{{pitch.id}}">here</a>.</p>
+      <p class="ian">
+        Add a comment
+        <a class="text-muted" href="/comment/{{pitch.id}}">here</a>.
+      </p>
     </div>
   </div>
 </div>
