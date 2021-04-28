@@ -1,68 +1,97 @@
 {% extends 'base.html'%} {% block content %}
 <div class="container">
   <div class="row">
-    <!-- displaying  Username-->
     <div class="col-md-4">
-      <h3
-        class="prof"
-        style="
-          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
-            sans-serif;
-        "
-      >
-        {{user.username| capitalize}}
-      </h3>
-
-      <!--Displaying user bio-->
-      {% if user.bio %}
-      <strong><p>{{user.bio}}</p></strong>
-      {%else%}
-      <p>{{user.username| capitalize}} has no bio</p>
-      {% endif %} {% if user == current_user %}
-      <a
-        class="j btn btn-default"
-        href="{{url_for('main.update_profile',uname=user.username)}}"
-        >Edit profile</a
-      >
-      {% endif %}
+      <div class="profile">
+        {% if user.profile_pic_path %}
+        <img
+          style="width: 28rem"
+          src="{{url_for('static',filename=user.profile_pic_path)}}"
+          alt=""
+          class="img-thumbnail"
+        />
+        {%else%}
+        <p>No profile picture</p>
+        {% endif %} {% if user == current_user %}
+        <form
+          style="width: 28rem"
+          action="{{url_for('main.update_pic',uname=user.username)}}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <input type="file" name="photo" class="a ian form-control" required />
+          <input class="ian btn btn-default" type="submit" />
+        </form>
+        {% endif %}
+      </div>
     </div>
-
-    <!--Display profile photo-->
-    <div class="col-md-4 card">
-      {% if user.profile_pic_path %}
-      <img
-        style="width: 28rem"
-        src="{{url_for('static',filename=user.profile_pic_path)}}"
-        alt=""
-        class="img-thumbnail"
-      />
-      {%else%}
-      <p>No profile picture</p>
-      {% endif %} {% if user == current_user %}
-      <form
-        style="width: 28rem"
-        action="{{url_for('main.update_pic',uname=user.username)}}"
-        method="post"
-        enctype="multipart/form-data"
-      >
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-        <input type="file" name="photo" class="ian form-control" required />
-        <input class="ian btn btn-default" type="submit" />
-      </form>
-      {% endif %}
+    <div class="col-md-6">
+      <div class="profile-head">
+        <h3
+          class="name"
+          style="
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+              sans-serif;
+          "
+        >
+          {{user.username| capitalize}}
+        </h3>
+        <h5>
+          {% if user.bio %}
+          <strong><p class="bio" style="color: black;">{{user.bio}}</p></strong>
+          {%else%}
+          <p class="bio" style="color: black;">{{user.username| capitalize}} has no bio</p>
+          {% endif %}
+        </h5>
+        <em><p class="bio" style="color: black;">Email : <strong><span style="color: black;">{{user.email}}</span></strong></p></em>
+      </div>
+    </div>
+    <div class="name col-md-2">
+      <a href="{{url_for('main.update_profile',uname=user.username)}}"
+        ><input
+          type="submit"
+          class="j btn btn-default"
+          name="btnAddMore"
+          value="Edit Profile"
+      /></a>
     </div>
   </div>
-  <div class="ian col-md-5">
+  <div class="ian col-md-12">
     {% if current_user %}
-    <h3 class="">You have {{user.pitches.count()}} Pitches</h3>
+    <h3 class="pit text-center">You have {{user.pitches.count()}} Pitches</h3>
     {% for pitch in pitches%}
-    <div class="container">
-      <h3>{{pitch.title}}</h3>
-      <h6>{{pitch.content}}</h6>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+      <div class="pitch-card card">
+        <div class="card-title">
+          <h5 class="card-header card-title">
+            <strong>{{pitch.title}}</strong>
+          </h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text" style="color: black">{{pitch.content}}</p>
+        </div>
+      </div>
     </div>
     {%endfor%} {%else%}
     <h3>You have 0 pitches</h3>
     {%endif%}
   </div>
 </div>
-{% block footer %} {% include 'footer.html' %} {% endblock%} {% endblock %}
+<!-- Footer -->
+<footer class="category-footer page-footer font-small">
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3" style="color: #9d9d9d">
+    © 2021 Copyright:
+    <a
+      href="mailto:ianjkiplagat@gmail.com"
+      style="color: white"
+      target="_blank"
+    >
+      Ian Kiplagat</a
+    >
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+{% endblock %}
