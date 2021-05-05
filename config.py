@@ -17,18 +17,17 @@ class Config:
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
-
-
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql://kxayvtpxoxieyu:692e734243f9f1626669f34cdc51242a7540b45fabef7022562134413f90e4ce@ec2-3-212-75-25.compute-1.amazonaws.com:5432/d1gcjmvohmabgs?sslmode=require'
-
-
+    uri = os.getenv("DATABASE_URL")  # or other relevant config var
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    SQLALCHEMY_DATABASE_URI = uri
 class DevConfig(Config):
     DEBUG = True
     
 
 class TestConfig(Config):
-    pass
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://kasparov:ian@2304@localhost/vividly'
     
 
 config_options = {
