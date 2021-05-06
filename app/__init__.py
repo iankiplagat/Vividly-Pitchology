@@ -6,7 +6,6 @@ from flask_uploads import UploadSet,configure_uploads,IMAGES
 from config import config_options
 from flask_mail import Mail
 from flask_wtf.csrf import CSRFProtect
-from flask_simplemde import SimpleMDE
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -16,7 +15,6 @@ login_manager.login_view = 'auth.login'
 photos = UploadSet('photos',IMAGES)
 mail = Mail()
 csrf = CSRFProtect()
-simple = SimpleMDE()
 
 def create_app(config_name):
 
